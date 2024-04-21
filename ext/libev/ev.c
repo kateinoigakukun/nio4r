@@ -244,7 +244,9 @@
 
 #ifndef _WIN32
 # include <sys/time.h>
-# include <sys/wait.h>
+# if EV_CHILD_ENABLE
+#  include <sys/wait.h>
+# endif
 # include <unistd.h>
 #else
 # include <io.h>

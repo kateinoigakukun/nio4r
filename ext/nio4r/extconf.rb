@@ -40,6 +40,11 @@ $defs << "-DEV_USE_EPOLL"        if have_header("sys/epoll.h")
 $defs << "-DEV_USE_KQUEUE"       if have_header("sys/event.h") && have_header("sys/queue.h")
 $defs << "-DEV_USE_PORT"         if have_type("port_event_t", "port.h")
 $defs << "-DHAVE_SYS_RESOURCE_H" if have_header("sys/resource.h")
+$defs << "-DHAVE_SYS_WAIT_H"     if have_header("sys/wait.h")
+if MakeMakefile::RbConfig::CONFIG['platform'] =~ /wasi/
+  $defs << "-DEV_NO_THREADS"
+  $defs << "-DEV_SIGNAL_ENABLE=0"
+end
 
 $defs << "-DEV_STANDALONE" # prevent libev from assuming "config.h" exists
 
